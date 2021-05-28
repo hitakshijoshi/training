@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="TrainingHitakshi_LoginRestriction::loginrestriction" title="Login Restriction" module="TrainingHitakshi_LoginRestriction" sortOrder="51" resource="TrainingHitakshi_LoginRestriction::loginrestriction"/>
+
+
+        <add id="TrainingHitakshi_LoginRestriction::post" title="Manage IP Address" module="TrainingHitakshi_LoginRestriction" sortOrder="10" action="ipaddr/login/index" resource="TrainingHitakshi_LoginRestriction::post" parent="TrainingHitakshi_LoginRestriction::loginrestriction"/>
+        
+    </menu>
+</config>

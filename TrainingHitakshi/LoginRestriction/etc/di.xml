@@ -1,0 +1,19 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+
+    
+<preference for="TrainingHitakshi\LoginRestriction\Api\Data\IpInterface" type="TrainingHitakshi\LoginRestriction\Model\Ip"/>
+<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+<arguments>
+<argument name="collections" xsi:type="array">
+<item name="ipaddress_entity_list_data_source" xsi:type="string">TrainingHitakshi\LoginRestriction\Model\ResourceModel\Ip\Grid\Collection</item>
+</argument>
+</arguments>
+</type>
+
+<virtualType name="TrainingHitakshi\LoginRestriction\Model\ResourceModel\Ip\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+<arguments>
+<argument name="mainTable" xsi:type="string">ip_address</argument>
+<argument name="resourceModel" xsi:type="string">TrainingHitakshi\LoginRestriction\Model\ResourceModel\Ip</argument>
+</arguments>
+</virtualType>
+</config>

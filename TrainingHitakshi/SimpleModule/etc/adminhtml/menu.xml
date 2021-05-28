@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="TrainingHitakshi_SimpleModule::simplemodule" title="Simple Module" module="TrainingHitakshi_SimpleModule" sortOrder="51" resource="TrainingHitakshi_SimpleModule::simplemodule"/>
+
+
+        <add id="TrainingHitakshi_SimpleModule::post" title="Manage Member" module="TrainingHitakshi_SimpleModule" sortOrder="10" action="simplemodule/member/index" resource="TrainingHitakshi_SimpleModule::post" parent="TrainingHitakshi_SimpleModule::simplemodule"/>
+        
+    </menu>
+</config>
