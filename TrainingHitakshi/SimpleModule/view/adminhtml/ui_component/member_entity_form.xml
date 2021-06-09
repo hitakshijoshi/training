@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+		<item name="provider" xsi:type="string">member_entity_form.member_entity_form_data_source</item>
+		<item name="deps" xsi:type="string">member_entity_form.member_entity_form_data_source</item>
+		</item>
+		<item name="label" xsi:type="string" translate="true">Member Information</item>
+		<item name="config" xsi:type="array">
+		<item name="dataScope" xsi:type="string">data</item>
+		<item name="namespace" xsi:type="string">member_entity_form</item>
+		</item>
+		<item name="template" xsi:type="string">templates/form/collapsible</item>
+		<item name="buttons" xsi:type="array">
+		<item name="back" xsi:type="string">TrainingHitakshi\SimpleModule\Block\Adminhtml\Member\Edit\BackButton</item>
+		<item name="reset" xsi:type="string">TrainingHitakshi\SimpleModule\Block\Adminhtml\Member\Edit\ResetButton</item>
+		<item name="delete" xsi:type="string">TrainingHitakshi\SimpleModule\Block\Adminhtml\Member\Edit\DeleteButton</item>
+		<item name="save" xsi:type="string">TrainingHitakshi\SimpleModule\Block\Adminhtml\Member\Edit\SaveButton</item>
+		<item name="save_and_continue" xsi:type="string">TrainingHitakshi\SimpleModule\Block\Adminhtml\Member\Edit\SaveAndContinueButton</item>
+		</item>
+	</argument>
+	<dataSource name="member_entity_form_data_source">
+	<argument name="dataProvider" xsi:type="configurableObject">
+	<argument name="class" xsi:type="string">TrainingHitakshi\SimpleModule\Model\Member\DataProvider</argument>
+	<argument name="name" xsi:type="string">member_entity_form_data_source</argument>
+	<argument name="primaryFieldName" xsi:type="string">member_id</argument>
+	<argument name="requestFieldName" xsi:type="string">member_id</argument>
+	<argument name="data" xsi:type="array">
+	<item name="config" xsi:type="array">
+	<item name="submit_url" xsi:type="url" path="*/*/save"/>
+	</item>
+	</argument>
+	</argument>
+	<argument name="data" xsi:type="array">
+	<item name="js_config" xsi:type="array">
+	<item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+	</item>
+	</argument>
+	</dataSource>
+	<fieldset name="MemberFields">
+	<argument name="data" xsi:type="array">
+	<item name="config" xsi:type="array">
+	<item name="label" xsi:type="string" translate="true"/>
+	</item>
+	</argument>
+	<!--  This field represents form id and is hidden  -->
+	<field name="member_id">
+	<argument name="data" xsi:type="array">
+	<item name="config" xsi:type="array">
+	<item name="visible" xsi:type="boolean">false</item>
+	<item name="dataType" xsi:type="string">text</item>
+	<item name="formElement" xsi:type="string">input</item>
+	<item name="source" xsi:type="string">member_data</item>
+	</item>
+	</argument>
+	</field>
+	<field name="name">
+	<argument name="data" xsi:type="array">
+	<item name="config" xsi:type="array">
+	<item name="label" xsi:type="string">Name</item>
+	<item name="visible" xsi:type="boolean">true</item>
+	<item name="dataType" xsi:type="string">text</item>
+	<item name="formElement" xsi:type="string">input</item>
+	<item name="source" xsi:type="string">member_data</item>
+	<item name="required" xsi:type="boolean">false</item>
+	<item name="validation" xsi:type="array">
+	<item name="required-entry" xsi:type="boolean">false</item>
+	</item>
+	</item>
+	</argument>
+	</field>
+	<field name="status" formElement="checkbox">
+	<argument name="data" xsi:type="array">
+	<item name="config" xsi:type="array">
+	<item name="source" xsi:type="string">member_data</item>
+	</item>
+	</argument>
+	<settings>
+	<dataType>boolean</dataType>
+	<label translate="true">Member Status</label>
+	<visible>true</visible>
+	<dataScope>status</dataScope>
+	</settings>
+	<formElements>
+	<checkbox>
+	<settings>
+	<prefer>toggle</prefer>
+	<valueMap>
+	<map name="false" xsi:type="number">0</map>
+	<map name="true" xsi:type="number">1</map>
+	</valueMap>
+	</settings>
+	</checkbox>
+	</formElements>
+	</field>
+	<field name="type" formElement="select">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Select Type</label>
+                <dataScope>type</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options>
+                            <option name="1" xsi:type="array">
+                                <item name="value" xsi:type="string">Silver</item>
+                                <item name="label" xsi:type="string">Silver</item>
+                            </option>
+                            <option name="2" xsi:type="array">
+                                <item name="value" xsi:type="string">Gold</item>
+                                <item name="label" xsi:type="string">Gold</item>
+                            </option>
+                            <option name="3" xsi:type="array">
+                                <item name="value" xsi:type="string">Premium</item>
+                                <item name="label" xsi:type="string">Premium</item>
+                            </option>
+                        </options>
+                        <caption translate="true">-- Please Select --</caption>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+        <field name="hobbies" formElement="multiselect">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Hobbies</label>
+                <dataScope>hobbies</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options>
+                            <option name="first_option" xsi:type="array">
+                                <item name="value" xsi:type="string">Reading</item>
+                                <item name="label" xsi:type="string">Reading</item>
+                            </option>
+                            <option name="second_option" xsi:type="array">
+                                <item name="value" xsi:type="string">Writing</item>
+                                <item name="label" xsi:type="string">Writing</item>
+                            </option>
+                            <option name="third_option" xsi:type="array">
+                                <item name="value" xsi:type="string">Singing</item>
+                                <item name="label" xsi:type="string">Singing</item>
+                            </option>
+                        </options>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+
+        <colorPicker name="color_selection" class="Magento\Ui\Component\Form\Element\ColorPicker" component="Magento_Ui/js/form/element/color-picker">
+            <settings>
+                <label translate="true">Color</label>
+                <elementTmpl>ui/form/element/color-picker</elementTmpl>
+                <colorFormat>rgb</colorFormat>
+                <colorPickerMode>full</colorPickerMode>
+                <dataScope>color_selection</dataScope>
+            </settings>
+        </colorPicker>
+
+	</fieldset>
+</form>

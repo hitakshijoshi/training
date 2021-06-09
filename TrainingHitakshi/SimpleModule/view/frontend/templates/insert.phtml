@@ -1,0 +1,129 @@
+<?php
+$record = $block->getEditRecord();
+?>
+<form class="" action="<?php echo $block->getBaseUrl().'simplemodule/index/save'; ?>" id="biren-crudimage-form" method="post"   data-mage-init='{"validation": {}}'>
+    <fieldset class="fieldset">
+        <legend class="legend"><span>Member Details </span> <span style="float: right;"><a href="<?php echo $block->getBaseUrl().'simplemodule/index/index'; ?>">Member List</a></span></legend>
+
+        <br>
+       
+        <div class="field name">
+            <label class="label" for="name"><span>Name</span></label>
+            <div class="control">
+                <input name="name" id="name" title="Name" value="<?php if(!empty($record['name'])){ echo $record['name'];} ?>" class="input-text" type="text" data-validate="{required:true}">
+            </div>
+        </div>
+
+        <div class="field status">
+        <label class="label" for="name"><span>Status</span></label>
+         <div class="control">
+        <label class="switch">
+              <input type="checkbox" name="status" <?php if (!empty($record['status']) && $record['status'] == 1)  echo 'checked'; ?>>
+              <span class="slider round"></span>
+        </label>
+         </div>
+        </div>
+
+         <div class="field type">
+            <label class="label" for="type"><span>Type</span></label>
+            <div class="control">
+            <select id="type" name="type" title="Type" class="select">
+            <option value="Silver" <?php if (!empty($record['type']) && $record['type'] == 'Silver')  echo 'selected = "selected"'; ?>
+            >Silver</option>
+            <option value="Gold" <?php if (!empty($record['type']) && $record['type'] == 'Gold')  echo 'selected = "selected"'; ?>
+            >Gold</option>
+            <option value="Premium" <?php if (!empty($record['type']) && $record['type'] == 'Premium')  echo 'selected = "selected"'; ?>
+            >Premium</option>
+            </select>
+            </div>
+        </div>
+
+         <div class="field hobbies">
+            <label class="label" for="hobbies"><span>Hobbies</span></label>
+            <div class="control">
+            <select id="hobbies" name="hobbies[]" title="Hobbies" multiple>
+            <option value="Reading">Reading</option>
+            <option value="Writing">Writing</option>
+            <option value="Singing">Singing</option>
+            </select>
+            </div>
+        </div>
+
+        <div class="field color_selection">
+            <label class="label" for="color_selection"><span>Color</span></label>
+            <div class="control">
+                <input name="color_selection" id="color_selection" title="Color" value="<?php if(!empty($record['color_selection'])){ echo $record['color_selection'];} ?>" type="color">
+            </div>
+        </div>
+        <input type="hidden" name="member_id" value="<?php if(!empty($record['member_id'])){ echo $record['member_id'];} ?>">
+        
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" title="Submit" class="action submit primary">
+                <span>Submit</span>
+            </button>
+        </div>
+    </div>
+</form>
+<style type="text/css">
+    .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 35px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #588242;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>

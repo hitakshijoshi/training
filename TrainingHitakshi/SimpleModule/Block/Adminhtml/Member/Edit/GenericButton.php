@@ -1,18 +1,19 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
+
 namespace TrainingHitakshi\SimpleModule\Block\Adminhtml\Member\Edit;
 
+use Magento\Backend\Block\Widget\Context;
 use Magento\Framework\Registry;
-use TrainingHitakshi\SimpleModule\Model\Member;
 
 /**
  * Class GenericButton
  */
 class GenericButton
 {
+    /**
+     * @var Context
+     */
+    protected $context;
     /**
      * Url Builder
      *
@@ -34,10 +35,11 @@ class GenericButton
      * @param \Magento\Framework\Registry $registry
      */
     public function __construct(
-        \Magento\Backend\Block\Widget\Context $context,
+        Context $context,
         Registry $registry
     ) {
-        $this->urlBuilder = $context->getUrlBuilder();
+        $this->context = $context;
+        $this->urlBuilder = $this->context->getUrlBuilder();
         $this->registry = $registry;
     }
 
@@ -48,8 +50,10 @@ class GenericButton
      */
     public function getId()
     {
-        $member = $this->registry->registry('member');
-        return $member ? $member->getId() : null;
+        $entityId = null;
+        $entityId =  $this->context->getRequest()->getParam('member_id'); 
+        
+        return $entityId;
     }
 
     /**

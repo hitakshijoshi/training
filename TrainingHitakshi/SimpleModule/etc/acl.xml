@@ -3,12 +3,11 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="TrainingHitakshi_SimpleModule::simplemodule" title="Simple Module" sortOrder="51">
-                    <resource id="TrainingHitakshi_SimpleModule::post" title="Posts" sortOrder="10"/>
-                    <resource id="TrainingHitakshi_SimpleModule::helloworld_configuration" title="Configuration" sortOrder="99" />
+                <resource id="TrainingHitakshi_SimpleModule::simplemodule" title="Simple Module" sortOrder="52">
+                    <resource id="TrainingHitakshi_SimpleModule::post" title="Posts" sortOrder="11"/>
+                    <resource id="TrainingHitakshi_SimpleModule::helloworld_configuration" title="Configuration" sortOrder="100" />
                 </resource>
-                
-            </resource>
+             </resource>
         </resources>
     </acl>
 </config>

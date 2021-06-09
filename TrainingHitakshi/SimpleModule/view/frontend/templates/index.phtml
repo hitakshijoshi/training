@@ -1,0 +1,36 @@
+<div style="float: right;">
+     <a class="action primary" href="<?php echo $block->getUrl('simplemodule/index/insert'); ?>">Add Record</a>
+</div>
+<h1>Member List</h1>
+<br>
+<table>
+     <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Color</th>
+          <th>Status</th>
+          <th>Created At</th>
+          <th>Updated At</th>
+          <th colspan="2">Action</th>
+     </tr>
+ 
+     <?php
+          $collection = $block->getResult();
+          foreach($collection as $item){
+     ?>
+     <tr>
+          <td><?php echo $item->getData('member_id'); ?></td>
+          <td><?php echo $item->getData('name'); ?></td>
+          <td><?php echo $item->getData('type'); ?></td>
+          <td><?php echo $item->getData('color_selection'); ?></td>
+          <td><?php if($item->getData('status') == 1){
+               echo "Enabled";
+          }else{echo "Disabled";} ?></td>
+          <td><?php echo $item->getData('created_at'); ?></td>
+          <td><?php echo $item->getData('updated_at'); ?></td>
+          <td><a href="<?php echo $block->getUrl('simplemodule/index/edit').'id/'.$item->getData('member_id'); ?>" class="action primary">Edit</a></td>
+         
+     </tr>
+     <?php } ?>
+</table>

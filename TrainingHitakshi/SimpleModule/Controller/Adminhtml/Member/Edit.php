@@ -1,73 +1,67 @@
 <?php
-/**
- *
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
+
 namespace TrainingHitakshi\SimpleModule\Controller\Adminhtml\Member;
 
-
 use Magento\Backend\App\Action;
-use Magento\Framework\App\ResponseInterface;
-use Magento\Framework\Registry;
-use Magento\Framework\View\Result\PageFactory;
-use TrainingHitakshi\SimpleModule\Model\Member;
+use Magento\Framework\Controller\ResultFactory;
 
-/**
- * 
- */
-class Edit extends Action
+class Edit extends \Magento\Backend\App\Action
 {
-	protected $pageFactory;
-	protected $member;
-	protected $registry;
-	public function __construct(
-		Member $member,
-		PageFactory $pageFactory,
-		Registry $registry,
-		Action\Context $context)
-	{
-		$this->member = $member;
-		$this->pageFactory = $pageFactory;
-		$this->registry = $registry;
-		parent::__construct($context);
-	}
+    /**
+         * Authorization level of a basic admin session
+         *
+         * @see _isAllowed()
+         */
+        const ADMIN_RESOURCE = 'TrainingHitakshi_SimpleModule::entity';
 
-	protected function _isAllowed(){
-		return $this->_authorization->isAllowed("TrainingHitakshi_SimpleModule::parent");
-	}
-
-	public function execute()
-	{
-		$id = $this->getRequest()->getparam('id');
-
-		$model = $this->member;
-
-		if($id){
-			$model->load($id);
-			if(!$model->getId()){
-				$this->messageManager->addErrorMessage(__('This member does not exist'));
-				
-				$result = $this->resultRedirectFactory->create();
-				return $result->setPath('simplemodule/member/index');
-			}
-		}
-		$data = $this->_getSession()->getFormData(true);
-		
-		if(!empty($data)){
-			$model->setData($data);
-		}
-		$this->registry->register("member",$model);
-		/** @var \Magento\Framework\View\Result\Page $resultPage */
-		$resultPage  = $this->pageFactory->create();
-		
-		
-		if($id){
-			$resultPage->getConfig()->getTitle()->prepend("Edit");
-		}
-		else{
-			$resultPage->getConfig()->getTitle()->prepend("Add");
-		}
-		return $resultPage;
-	}
-}
+        /**
+         * @var \Magento\Framework\Registry
+         */
+        private $coreRegistry;
+    
+        /**
+         * @var \TrainingHitakshi\SimpleModule\Model\MemberFactory
+         */
+        private $memberFactory;
+    
+        /**
+         * @param \Magento\Backend\App\Action\Context $context
+         * @param \Magento\Framework\Registry $coreRegistry,
+         * @param \TrainingHitakshi\SimpleModule\Model\MemberFactory $memberFactory
+         */
+        public function __construct(
+            \Magento\Backend\App\Action\Context $context,
+            \Magento\Framework\Registry $coreRegistry,
+            \TrainingHitakshi\SimpleModule\Model\MemberFactory $memberFactory
+        ) {
+            parent::__construct($context);
+            $this->coreRegistry = $coreRegistry;
+            $this->memberFactory = $memberFactory; 
+        }
+    
+       
+        public function execute()
+        {
+            $rowId = (int) $this->getRequest()->getParam('member_id');
+            $rowData = $this->memberFactory->create();
+            
+            
+            if ($rowId) {
+                $rowData = $rowData->load($rowId);
+               
+                if (!$rowData->getEntityId()) {
+                    $this->messageManager->addError(__('row data no longer exist.'));
+                    $this->_redirect('*/*/index');
+                    return;
+                }
+            }
+            $this->coreRegistry->register('row_data', $rowData);
+            $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
+            
+            $title = "Member Information";
+            $resultPage->getConfig()->getTitle()->prepend($title);
+            return $resultPage;
+        }
+    
+      
+    }

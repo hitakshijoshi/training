@@ -1,4 +1,5 @@
 <?php
+
 namespace TrainingHitakshi\SimpleModule\Block\Adminhtml\Member\Edit;
 
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;

@@ -1,82 +1,101 @@
 <?php
-/**
- *
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
+
 namespace TrainingHitakshi\SimpleModule\Controller\Adminhtml\Member;
-use Magento\Backend\App\Action;
+
+use Magento\Framework\App\Action\Action;
+use Magento\Framework\App\Action\Context;
+use TrainingHitakshi\SimpleModule\Model\MemberFactory;
 use Magento\Framework\View\Result\PageFactory;
+use Magento\Framework\Session\SessionManagerInterface;
+use Magento\Framework\Serialize\SerializerInterface;
 
-use TrainingHitakshi\SimpleModule\Model\Member;
-use Magento\Backend\Model\View\Result\RedirectFactory;
-
-/**
- * 
- */
 class Save extends Action
 {
-	protected $model;
-	protected $redirectFactory;
-	
-	private $pageFactory;
-	public function __construct(
-		RedirectFactory $redirectFactory,
-		Member $member,
-		PageFactory $pageFactory,
-		
-		Action\Context $context)
-	{
-		$this->redirectFactory = $redirectFactory;
-		$this->model = $member;
-		
-		$this->pageFactory = $pageFactory;
-		parent::__construct($context);
-	}
 
-	protected function _isAllowed(){
-		return $this->_authorization->isAllowed("TrainingHitakshi_SimpleModule::parent");
-	}
+    /**
+     * Authorization level of a basic admin session
+     *
+     * @see _isAllowed()
+     */
+    const ADMIN_RESOURCE = 'TrainingHitakshi_SimpleModule::member';
 
-	public function execute()
-	{
-		$data = $this->getRequest()->getPostValue();
-		
+    /**
+     * @var MemberFactory
+    */
+    protected $_memberFactory;
+    
+    /**
+     * @var PageFactory
+    */
+    protected $resultPageFactory;
 
-		/** @var Magento\Backend\Model\View\Result\Redirect $resultRedirect */
-		$resultRedirect = $this->redirectFactory->create();
+    /**
+     * @var SessionManagerInterface
+    */
+    protected $_sessionManager;
 
-		if($data){
-			$id = $this->getRequest()->getParam('id');
-			
-			if($id)
-			{
-				$this->model->load($id);
+    /**
+     * @var SerializerInterface
+    */
+    protected $_serializer;
 
-			}
-			 $data = array_filter($data, function($value) { return $value !== ''; });
-			 
-            $model = $this->model->setData($data);
 
+
+    /**
+     * @param \Magento\Backend\App\Action\Context $context
+     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory,
+     * @param \TrainingHitakshi\SimpleModule\Model\MemberFactory $memberFactory,
+     * @param \Magento\Framework\Session\SessionManagerInterface $sessionManager,
+     * @param \Magento\Framework\Serialize\SerializerInterface
+     $serializer
+     */
+    public function __construct(
+        Context $context,
+        MemberFactory $memberFactory,
+        PageFactory  $resultPageFactory,
+        SessionManagerInterface $sessionManager,
+        SerializerInterface $serializer
+    )
+    {
+        parent::__construct($context);
+        $this->_memberFactory = $memberFactory;
+        $this->resultPageFactory = $resultPageFactory;
+        $this->_sessionManager = $sessionManager;
+        $this->_serializer = $serializer;
+        
+    }
+    
+    /**
+     * Save action
+    */
+    public function execute()
+    {   
+        $resultRedirect     = $this->resultRedirectFactory->create();
+        $memberModel        = $this->_memberFactory->create();
+        $data               = $this->getRequest()->getPost(); 
+        
+        try{
+            if (!empty($data['member_id'])) {
+                $memberModel->setMemberId($data['member_id']);
             }
-			
-			try{
+            $memberModel->setData('name', $data['name']);
+            $memberModel->setData('status', $data['status']);
+            $memberModel->setData('type', $data['type']);
+            $serializeData = $this->_serializer->serialize($data['hobbies']);
+            $memberModel->setData('hobbies', $serializeData);
+            $memberModel->setData('color_selection', $data['color_selection']);
+            $memberModel->save();
+            //check for `back` parameter
+            if ($this->getRequest()->getParam('back')) { 
+                return $resultRedirect->setPath('*/*/edit', ['member_id' => $memberModel->getId(), '_current' => true, '_use_rewrite' => true]);
+            }
 
-			$model->save();
+            $this->_redirect('*/*');
+            $this->messageManager->addSuccess(__('The Member has been saved.'));
 
-            $this->messageManager->addSuccess(__('Successfully saved the item.'));
-            $this->_getSession()->setFormData(false);                
-            return $resultRedirect->setPath('*/*/index');
-		}
-		catch(\Exception $e){
-			$this->messageManager->addErrorMessage($e->getMessage());
-
-		}
-	
-
-        return $resultRedirect->setPath('*/*/index');
-
-	}
-
-	
+        }catch(\Exception $e){
+            $this->messageManager->addError(__($e->getMessage()));
+        }        
+        
+    }
 }

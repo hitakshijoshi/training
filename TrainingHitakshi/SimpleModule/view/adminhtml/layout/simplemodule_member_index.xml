@@ -6,9 +6,9 @@
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <body>
-        <referenceContainer name="content">
-            <uiComponent name="simplemodule_member_listing"/>
-        </referenceContainer>
-    </body>
+<body>
+	<referenceContainer name="content">
+		<uiComponent name="member_entity_list"/>
+	</referenceContainer>
+</body>
 </page>

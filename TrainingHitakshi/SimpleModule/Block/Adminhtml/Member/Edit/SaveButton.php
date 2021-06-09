@@ -1,4 +1,5 @@
 <?php
+
 namespace TrainingHitakshi\SimpleModule\Block\Adminhtml\Member\Edit;
 
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
@@ -14,14 +15,13 @@ class SaveButton extends GenericButton implements ButtonProviderInterface
     public function getButtonData()
     {
         return [
-            'label' => __('Save Member'),
+            'label' => __('Save Entity'),
             'class' => 'save primary',
             'data_attribute' => [
                 'mage-init' => ['button' => ['event' => 'save']],
                 'form-role' => 'save',
             ],
-            'sort_order' => 50,
+            'sort_order' => 90,
         ];
     }
 }
-

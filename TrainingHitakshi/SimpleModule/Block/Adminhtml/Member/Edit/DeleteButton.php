@@ -1,4 +1,5 @@
 <?php
+
 namespace TrainingHitakshi\SimpleModule\Block\Adminhtml\Member\Edit;
 
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
@@ -16,10 +17,10 @@ class DeleteButton extends GenericButton implements ButtonProviderInterface
         $data = [];
         if ($this->getId()) {
             $data = [
-                'label' => __('Delete Button'),
+                'label' => __('Delete'),
                 'class' => 'delete',
                 'on_click' => 'deleteConfirm(\''
-                    . __('Are you sure you want to delete this contact ?')
+                    . __('Are you sure you want to delete this entity ?')
                     . '\', \'' . $this->getDeleteUrl() . '\')',
                 'sort_order' => 20,
             ];
@@ -32,6 +33,6 @@ class DeleteButton extends GenericButton implements ButtonProviderInterface
      */
     public function getDeleteUrl()
     {
-        return $this->getUrl('*/*/delete', ['id' => $this->getId()]);
+        return $this->getUrl('*/*/delete', ['member_id' => $this->getId()]);
     }
 }

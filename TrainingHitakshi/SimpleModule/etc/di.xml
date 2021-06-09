@@ -1,40 +1,21 @@
 <?xml version="1.0"?>
-<!--
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
--->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
- <virtualType name="GridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
-        <arguments>
-            <argument name="appliers" xsi:type="array">
-                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
-                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
-            </argument>
-        </arguments>
-    </virtualType>
-<virtualType name="GridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
-        <arguments>
-            <argument name="collection" xsi:type="object" shared="false">TrainingHitakshi\SimpleModule\Model\ResourceModel\Member\Collection</argument>
-            <argument name="filterPool" xsi:type="object" shared="false">GridFilterPool</argument>
-        </arguments>
-    </virtualType>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
 
+	<preference for="TrainingHitakshi\SimpleModule\Api\Data\MemberInterface" type="TrainingHitakshi\SimpleModule\Model\Member"/>
 
- <virtualType name="TrainingHitakshi\SimpleModule\Model\ResourceModel\Member\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
-        <arguments>
-            <argument name="mainTable" xsi:type="string">member_data</argument>
-            <argument name="resourceModel" xsi:type="string">TrainingHitakshi\SimpleModule\Model\ResourceModel\Member</argument>
-        </arguments>
-</virtualType>
-<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
-        <arguments>
-            <argument name="collections" xsi:type="array">
-                <item name="simplemodule_member_listing_data_source" xsi:type="string">TrainingHitakshi\SimpleModule\Model\ResourceModel\Member\Grid\Collection</item>
-            </argument>
-        </arguments>
-    </type>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+	<arguments>
+	<argument name="collections" xsi:type="array">
+	<item name="member_entity_list_data_source" xsi:type="string">TrainingHitakshi\SimpleModule\Model\ResourceModel\Member\Grid\Collection</item>
+	</argument>
+	</arguments>
+	</type>
 
+	<virtualType name="TrainingHitakshi\SimpleModule\Model\ResourceModel\Member\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">member_data</argument>
+			<argument name="resourceModel" xsi:type="string">TrainingHitakshi\SimpleModule\Model\ResourceModel\Member</argument>
+		</arguments>
+	</virtualType>
 
 </config>
