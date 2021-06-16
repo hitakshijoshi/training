@@ -1,7 +1,6 @@
 <?php
-/**
- * Created By : RH
- */
+
+
 namespace TrainingHitakshi\AffectedProducts\Controller\Adminhtml\Index;
 
 use Magento\Backend\App\Action;
